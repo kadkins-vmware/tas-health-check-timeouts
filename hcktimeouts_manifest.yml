@@ -10,7 +10,7 @@ applications:
     HCK_SLEEP_AFTER_START: '11'   # Defines the time the healthcheck will sleep after the app has started
   stack: cflinuxfs3
   routes:
-  - route: hcktimeouts.apps.tas.tanzume.com
+  - route: hcktimeouts.apps.<your tas foundation domain>
   processes:
   - type: web
     instances: 1
