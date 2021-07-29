@@ -1,0 +1,28 @@
+---
+applications:
+- name: hcktimeouts
+  stack: cflinuxfs3
+  path: ./target/healthchecktimeouts-0.0.1.jar
+  buildpacks:
+  - java_buildpack_offline
+  env:
+    HCK_SLEEP_AT_START: '5'       # Defines the time the healthcheck will sleep at app startup
+    HCK_SLEEP_AFTER_START: '11'   # Defines the time the healthcheck will sleep after the app has started
+  stack: cflinuxfs3
+  routes:
+  - route: hcktimeouts.apps.tas.tanzume.com
+  processes:
+  - type: web
+    instances: 1
+    memory: 1024M
+    disk_quota: 1024M
+    # The TAS Tile "App Containers -> Default health check timeout. Enter value in seconds." 
+    # is ignored if health check is specified.
+    health-check-type: http
+    health-check-http-endpoint: "/actuator/health"
+    
+    #time within which the invocation of the endpoint must complete
+    health-check-invocation-timeout: 15    # Default is 1 second if not set
+
+    #total time within which the platform health check must complete (including invocation of health-check-http-endpoint)
+    timeout: 20
