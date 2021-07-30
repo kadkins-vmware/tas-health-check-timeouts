@@ -6,9 +6,8 @@ applications:
   buildpacks:
   - java_buildpack_offline
   env:
-    HCK_SLEEP_AT_START: '5'       # Defines the time the healthcheck will sleep at app startup
-    HCK_SLEEP_AFTER_START: '11'   # Defines the time the healthcheck will sleep after the app has started
-  stack: cflinuxfs3
+    HCK_SLEEP_AT_START: '5'      # Defines the time the healthcheck will sleep at app startup
+    HCK_SLEEP_AFTER_START: '10'   # Defines the time the healthcheck will sleep after the app has started
   routes:
   - route: hcktimeouts.apps.tas.tanzume.com
   processes:
@@ -21,8 +20,12 @@ applications:
     health-check-type: http
     health-check-http-endpoint: "/actuator/health"
     
-    #time within which the invocation of the endpoint must complete
-    health-check-invocation-timeout: 15    # Default is 1 second if not set
+    # Time within which the invocation of the endpoint must complete
+    health-check-invocation-timeout: 9    # Default is 1 second if not set
 
-    #total time within which the platform health check must complete (including invocation of health-check-http-endpoint)
-    timeout: 20
+    # Total time within which the platform health check must complete 
+    # (including invocation of health-check-http-endpoint)
+    #
+    # As configured in this manifest file, the app will crash, be destroyed, 
+    # and restarted by TAS continuously. (5,10,9,60)
+    timeout: 60
