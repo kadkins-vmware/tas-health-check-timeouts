@@ -9,7 +9,7 @@ applications:
     HCK_SLEEP_AT_START: '5'      # Defines the time the healthcheck will sleep at app startup
     HCK_SLEEP_AFTER_START: '10'   # Defines the time the healthcheck will sleep after the app has started
   routes:
-  - route: hcktimeouts.apps.tas.tanzume.com
+  - route: hcktimeouts.apps.<your tas foundation domain>
   processes:
   - type: web
     instances: 1
@@ -27,5 +27,5 @@ applications:
     # (including invocation of health-check-http-endpoint)
     #
     # As configured in this manifest file, the app will crash, be destroyed, 
-    # and restarted by TAS continuously. (5,10,9,60)
+    # and restarted by TAS continuously.
     timeout: 60
